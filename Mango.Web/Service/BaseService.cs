@@ -11,18 +11,27 @@ namespace Mango.Web.Service;
 public class BaseService : IBaseService
 {
     private readonly IHttpClientFactory _httpClientFactory;
-    public BaseService(IHttpClientFactory httpClientFactory)
+    private readonly ITokenProvider _tokenProvider;
+    public BaseService(IHttpClientFactory httpClientFactory, ITokenProvider tokenProvider)
     {
         _httpClientFactory = httpClientFactory;
+        _tokenProvider = tokenProvider; 
     }
 
-    public async Task<ResponseDto?> SendAsync(RequestDto requestDto)
+    public async Task<ResponseDto?> SendAsync(RequestDto requestDto, bool withBearer = true)
     {
         try
         {
             var client = _httpClientFactory.CreateClient("MangoAPI");
             var message = new HttpRequestMessage();
             message.Headers.Add("Accept", "application/json");
+
+            if (withBearer)
+            {
+                var token = _tokenProvider.GetToken();
+                message.Headers.Add("Authorization", $"Bearer {token}");
+            }
+
             message.RequestUri = new Uri(requestDto.Url);
 
             if (requestDto.Data is not null)
@@ -59,11 +68,11 @@ public class BaseService : IBaseService
                 case HttpStatusCode.NotFound:
                     return new() { IsSuccess = false, Message = "Not Found" };
                 case HttpStatusCode.Forbidden:
-                    return new() { IsSuccess = false, Message = "Not Found" };
+                    return new() { IsSuccess = false, Message = "Forbidden" };
                 case HttpStatusCode.Unauthorized:
-                    return new() { IsSuccess = false, Message = "Not Found" };
+                    return new() { IsSuccess = false, Message = "Unauthorized" };
                 case HttpStatusCode.InternalServerError:
-                    return new() { IsSuccess = false, Message = "Not Found" };
+                    return new() { IsSuccess = false, Message = "InternalServerError" };
                 default:
                     var apiContent = await apiResponse.Content.ReadAsStringAsync();
                     var apiReponseDto = JsonConvert.DeserializeObject<ResponseDto>(apiContent);
