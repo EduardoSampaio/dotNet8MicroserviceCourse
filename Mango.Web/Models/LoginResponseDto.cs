@@ -1,6 +1,8 @@
-﻿namespace Mango.Web.Models;
-public class LoginResponseDto
+﻿namespace Mango.Web.Models
 {
-    public UserDto User { get; set; }
-    public string Token { get; set; }
+    public class LoginResponseDto
+    {
+        public UserDto User { get; set; }
+        public string Token { get; set; }
+    }
 }

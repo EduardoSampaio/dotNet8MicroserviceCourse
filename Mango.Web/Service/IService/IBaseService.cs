@@ -1,8 +1,9 @@
 ﻿using Mango.Web.Models;
 
-namespace Mango.Web.Service.IService;
-
-public interface IBaseService
+namespace Mango.Web.Service.IService
 {
-    Task<ResponseDto?> SendAsync(RequestDto requestDto, bool withBearer = true);
+    public interface IBaseService
+    {
+        Task<ResponseDto?> SendAsync(RequestDto requestDto, bool withBearer = true);
+    }
 }

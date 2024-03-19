@@ -7,6 +7,31 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <Content Include="Properties\ServiceDependencies\MangoMicroservice - Web Deploy\profile.arm.json" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <None Include="Views\Auth\Login.cshtml" />
+    <None Include="Views\Auth\Register.cshtml" />
+    <None Include="Views\Coupon\CouponCreate.cshtml" />
+    <None Include="Views\Coupon\CouponDelete.cshtml" />
+    <None Include="Views\Coupon\CouponIndex.cshtml" />
+    <None Include="Views\Home\Index.cshtml" />
+    <None Include="Views\Home\Privacy.cshtml" />
+    <None Include="Views\Home\ProductDetails.cshtml" />
+    <None Include="Views\Product\ProductCreate.cshtml" />
+    <None Include="Views\Product\ProductDelete.cshtml" />
+    <None Include="Views\Product\ProductEdit.cshtml" />
+    <None Include="Views\Product\ProductIndex.cshtml" />
+    <None Include="Views\Shared\Error.cshtml" />
+    <None Include="Views\Shared\_Layout.cshtml" />
+    <None Include="Views\Shared\_Notifications.cshtml" />
+    <None Include="Views\Shared\_ValidationScriptsPartial.cshtml" />
+    <None Include="Views\_ViewImports.cshtml" />
+    <None Include="Views\_ViewStart.cshtml" />
+  </ItemGroup>
+
+  <ItemGroup>
     <PackageReference Include="IdentityModel" Version="6.2.0" />
     <PackageReference Include="Newtonsoft.Json" Version="13.0.3" />
     <PackageReference Include="System.IdentityModel.Tokens.Jwt" Version="7.4.1" />

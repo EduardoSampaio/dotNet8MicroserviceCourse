@@ -13,7 +13,7 @@ namespace Mango.Web.Service
         private readonly ITokenProvider _tokenProvider;
         public BaseService(IHttpClientFactory httpClientFactory, ITokenProvider tokenProvider)
         {
-            _httpClientFactory = httpClientFactory;
+                _httpClientFactory = httpClientFactory;
             _tokenProvider = tokenProvider;
         }
 
@@ -44,15 +44,15 @@ namespace Mango.Web.Service
                 {
                     var content = new MultipartFormDataContent();
 
-                    foreach (var prop in requestDto.Data.GetType().GetProperties())
+                    foreach(var prop in requestDto.Data.GetType().GetProperties())
                     {
                         var value = prop.GetValue(requestDto.Data);
-                        if (value is FormFile)
+                        if(value is FormFile)
                         {
                             var file = (FormFile)value;
                             if (file != null)
                             {
-                                content.Add(new StreamContent(file.OpenReadStream()), prop.Name, file.FileName);
+                                content.Add(new StreamContent(file.OpenReadStream()),prop.Name,file.FileName);
                             }
                         }
                         else
@@ -69,6 +69,10 @@ namespace Mango.Web.Service
                         message.Content = new StringContent(JsonConvert.SerializeObject(requestDto.Data), Encoding.UTF8, "application/json");
                     }
                 }
+
+
+
+               
 
                 HttpResponseMessage? apiResponse = null;
 
@@ -105,8 +109,7 @@ namespace Mango.Web.Service
                         var apiResponseDto = JsonConvert.DeserializeObject<ResponseDto>(apiContent);
                         return apiResponseDto;
                 }
-            }
-            catch (Exception ex)
+            }catch (Exception ex)
             {
                 var dto = new ResponseDto
                 {
